@@ -46,3 +46,13 @@ def patch_therapist(db: Session, therapist_id: int, data: TherapistPatch):
   db.refresh(db_therapist)
 
   return db_therapist
+
+def delete_therapist(db: Session, therapist_id: int):
+  db_therapist = db.query(Therapist).filter(Therapist.id == therapist_id).first()
+
+  if not db_therapist:
+    return None
+  
+  db.delete(db_therapist)
+
+  return True
