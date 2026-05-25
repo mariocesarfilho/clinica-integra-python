@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import get_db
-from schemas.therapist import TherapistCreate, TherapistPatch
+from schemas.therapist import TherapistCreate, TherapistPatch, TherapistGet
 from services import therapist_service
 
 router = APIRouter()
@@ -11,7 +11,7 @@ def create(therapist: TherapistCreate, db: Session = Depends(get_db)):
   new_therapist = therapist_service.create_therapist(db=db, data=therapist)
   return new_therapist
 
-@router.get("/{therapist_id}", status_code=200)
+@router.get("/{therapist_id}", response_model=TherapistGet, status_code=200)
 def show(therapist_id: int, db: Session = Depends(get_db)):
   db_therapist = therapist_service.get_therapist(db, therapist_id)
 
