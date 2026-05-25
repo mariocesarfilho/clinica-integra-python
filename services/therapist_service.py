@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import Integer
 from models.therapist import Therapist
-from schemas.therapist import TherapistCreate, TherapistPatch
+from schemas.therapist import TherapistCreate, TherapistPatch, TherapistGet
 
 def create_therapist(db: Session, data: TherapistCreate):
   db_therapist = Therapist(**data.model_dump())
@@ -38,5 +38,6 @@ def delete_therapist(db: Session, therapist_id: int):
     return None
   
   db.delete(db_therapist)
+  db.commit()
 
   return True
