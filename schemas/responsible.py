@@ -15,6 +15,6 @@ class ResponsiblePatch(ResponsibleBase):
   relationship_patient: Optional[str] = None
 
 class ResponsibleGet(ResponsibleBase):
-  id: id
+  id: int
 
   model_config = ConfigDict(from_attributes=True)
